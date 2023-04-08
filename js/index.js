@@ -1,23 +1,24 @@
 const form = document.getElementById('github-form');
 const search = document.getElementById('search');
 const userList = document.getElementById('user-list');
-const repoList = document.getElementById('repo-list');
-//add event listener to the form
+const reposList = document.getElementById('repos-list');
+
 form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const searchQuery = search.value;
-    const uri = `https://api.github.com/search/users?q=${searchQuery}`;
-    fetch(uri)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            console.log(data.items);
-            displayUsers(data.items)
-        })
-        .catch(error => {
-            console.log(error);
-        })
+  event.preventDefault();
+  
+  const searchQuery = search.value;
+  const url = `https://api.github.com/search/users?q=${searchQuery}`;
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      displayUsers(data.items);
+    })
+    .catch(error => {
+      console.error(error);
+    });
 });
+
 //display search results
 function displayUsers(users){
     userList.innerHTML ='';
