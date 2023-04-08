@@ -41,3 +41,29 @@ function displayUsers(users){
         })
     });
 }
+//display list of repositories for the user
+function displayRepos(reposUrl) {
+    fetch(reposUrl)
+      .then(response => response.json())
+      .then(data => {
+        reposList.innerHTML = '';
+        
+        data.forEach(repo => {
+          const li = document.createElement('li');
+          const repoName = document.createElement('span');
+          const repoLink = document.createElement('a');
+  
+          repoName.innerText = repo.name;
+          repoLink.href = repo.html_url;
+          repoLink.innerText = 'View Repo';
+  
+          li.appendChild(repoName);
+          li.appendChild(repoLink);
+  
+          reposList.appendChild(li);
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
